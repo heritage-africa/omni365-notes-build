@@ -1,16 +1,12 @@
-
 name: Release
 
 on:
   push:
     branches: [main]
 
-# Ajoutez ces permissions spécifiques
 permissions:
   contents: write
-  actions: read
-  checks: read
-
+#
 jobs:
   release:
     # Only trigger when commit message contains --release
@@ -18,17 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ---------------------------------------------------------
-      # Checkout code 
-      # ---------------------------------------------------------
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # ---------------------------------------------------------
-      # 🔢 Read Node/NPM versions
-      # ---------------------------------------------------------
+      # (1) Read Node/NPM versions exactly like node.yml
       - name: Read node & npm versions
         id: versions
         uses: skjnldsv/read-package-engines-version-actions@v3
@@ -36,9 +25,7 @@ jobs:
           fallbackNode: '^20'
           fallbackNpm: '^10'
 
-      # ---------------------------------------------------------
-      # ⚙️ Setup Nextcloud environment + Krankerl
-      # ---------------------------------------------------------
+      # (2) Setup Nextcloud environment + Krankerl
       - name: Setup Nextcloud environment
         uses: ChristophWurst/setup-nextcloud@v0.3.2
         with:
@@ -46,9 +33,7 @@ jobs:
           npm-version: ${{ steps.versions.outputs.npmVersion }}
           tools: "krankerl"
 
-      # ---------------------------------------------------------
-      # 📦 Install dependencies & build
-      # ---------------------------------------------------------
+      # (3) Install + Build EXACTLY like node.yml
       - name: Install dependencies & build
         env:
           CYPRESS_INSTALL_BINARY: 0
@@ -57,22 +42,15 @@ jobs:
           npm ci
           npm run build --if-present
 
-      # ---------------------------------------------------------
-      # 🗜️ Package app with Krankerl
-      # ---------------------------------------------------------
+      # (4) Package with Krankerl (Nextcloud standard)
       - name: Package app
         run: krankerl package
 
-      # ---------------------------------------------------------
-      # 🚀 Create GitHub Release & upload tar.gz
-      # ---------------------------------------------------------
+      # (5) Create GitHub Release and upload tar.gz
       - name: Create GitHub Release
-        env: 
-          GH_TOKEN: ${{ secrets.FASECRET }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.FASECRET }}
         run: |
-          gh release create latest \
-            --title "Release" \
-            --notes "Automated release" \
-            ./build/artifacts/notes.tar.gz
-
-     
+          gh release create latest ./build/artifacts/tasks.tar.gz \
+            --title "release" \
+            --notes "Automated build & packaging from main branch."
