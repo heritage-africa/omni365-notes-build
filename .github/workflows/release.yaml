@@ -6,7 +6,7 @@ on:
 
 permissions:
   contents: write
-#
+
 jobs:
   release:
     # Only trigger when commit message contains --release
@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # (1) Read Node/NPM versions exactly like node.yml
       - name: Read node & npm versions
@@ -49,8 +51,13 @@ jobs:
       # (5) Create GitHub Release and upload tar.gz
       - name: Create GitHub Release
         env:
-          GITHUB_TOKEN: ${{ secrets.FASECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create latest ./build/artifacts/tasks.tar.gz \
-            --title "release" \
+          # Vérifier que le fichier existe
+          ls -la ./build/artifacts/
+          
+          # Créer la release
+          gh release create latest \
+            ./build/artifacts/tasks.tar.gz \
+            --title "Latest Release" \
             --notes "Automated build & packaging from main branch."
