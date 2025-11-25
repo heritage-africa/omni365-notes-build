@@ -58,6 +58,6 @@ jobs:
           
           # Créer la release
           gh release create latest \
-            ./build/artifacts/tasks.tar.gz \
-            --title "Latest Release" \
+            ./build/artifacts/notes.tar.gz \
+            --title "Release" \
             --notes "Automated build & packaging from main branch."
