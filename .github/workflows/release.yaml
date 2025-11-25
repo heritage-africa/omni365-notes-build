@@ -68,9 +68,11 @@ jobs:
       # ---------------------------------------------------------
       - name: Create GitHub Release
         env: 
-          GITHUB_TOKEN: ${{ secrets.FASECRET }}
+          GH_TOKEN: ${{ secrets.FASECRET }}
         run: |
           gh release create latest \
             --title "Release" \
             --notes "Automated release" \
             ./build/artifacts/notes.tar.gz
+
+     
