@@ -10,12 +10,12 @@
 				<div class="badge-wrapper">
 					<div>
 						<div class="badge">
-							<a target="_blank" href="https://play.google.com/store/apps/details?id=it.niedermann.owncloud.notes">
+							<a target="_blank" href="https://www.accel-tech.net/">
 								<img :src="getRoute('badge_playstore.svg')" class="appstore-badge badge-playstore-fix">
 							</a>
 						</div>
 						<div class="badge">
-							<a target="_blank" href="https://f-droid.org/repository/browse/?fdid=it.niedermann.owncloud.notes">
+							<a target="_blank" href="https://www.accel-tech.net/">
 								<img :src="getRoute('badge_fdroid.svg')" class="appstore-badge">
 							</a>
 						</div>
@@ -27,7 +27,7 @@
 				<div class="badge-wrapper">
 					<div>
 						<div class="badge">
-							<a target="_blank" href="https://apps.apple.com/app/nextcloud-notes/id813973264">
+							<a target="_blank" href="https://www.accel-tech.net/">
 								<img :src="getRoute('badge_applestore.svg')" class="appstore-badge badge-playstore-fix">
 							</a>
 						</div>
