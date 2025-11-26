@@ -1,5 +1,5 @@
 /**
- * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-FileCopyrightText: 2021 Omni GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -40,7 +40,7 @@ export const getDefaultSampleNoteTitle = () => {
 export const getDefaultSampleNote = () => {
 	return '# ' + getDefaultSampleNoteTitle() + `
 
-* 📅 ` + t('notes', '15 January 2021, via Nextcloud Notes') + `
+* 📅 ` + t('notes', '15 January 2021, via Omni Notes') + `
 * 👥 ` + t('notes', 'Me, you, and all our friends!') + `
 
 ## ` + t('notes', 'Tasks') + ` ✅
@@ -63,6 +63,6 @@ export const getDefaultSampleNote = () => {
 
 ## ` + t('notes', 'Quotes') + ` 💬
 
-> ` + t('notes', 'Nextcloud, a safe home for all your data') + `
+> ` + t('notes', 'Omni, a safe home for all your data') + `
 `
 }
